@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nome do seu site</title>
+<link href="cora.png" rel="icon">
+
+<style>
+
+body{
+margin:0;
+font-family:'Segoe UI',Arial,sans-serif;
+text-align:center;
+color:white;
+
+background:url(heart.gif) center/cover no-repeat fixed;
+}
+
+/* container */
+
+.container{
+max-width:900px;
+margin:40px auto;
+padding:25px;
+
+background:rgba(0,0,0,0.45);
+backdrop-filter:blur(10px);
+
+border-radius:20px;
+box-shadow:0 15px 40px rgba(0,0,0,0.6);
+}
+
+/* titulo */
+
+@font-face{
+font-family:kgt;
+src:url(KGT.otf);
+}
+
+.titulo3{
+font-family:kgt;
+font-size:40px;
+letter-spacing:2px;
+margin-bottom:20px;
+}
+
+/* carrossel */
+
+.carousel{
+position:relative;
+overflow:hidden;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.7);
+}
+
+.carousel img{
+width:100%;
+position:absolute;
+left:0;
+top:0;
+opacity:0;
+transition:opacity 1s ease;
+border-radius:15px;
+}
+
+.carousel img.active{
+opacity:1;
+position:relative;
+}
+
+/* botões */
+
+.buttons{
+margin-top:15px;
+}
+
+button{
+padding:12px 25px;
+border:none;
+border-radius:30px;
+
+background:linear-gradient(45deg,#ff4d6d,#ff8fa3);
+color:white;
+
+font-size:15px;
+font-weight:bold;
+
+cursor:pointer;
+transition:.3s;
+margin:5px;
+}
+
+button:hover{
+transform:scale(1.08);
+box-shadow:0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* texto */
+
+.text-box{
+margin-top:25px;
+
+background:rgba(255,255,255,0.9);
+color:#333;
+
+padding:25px;
+border-radius:15px;
+
+line-height:1.6;
+
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* contador */
+
+.contador-romantico{
+margin-top:40px;
+}
+
+.contador-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+gap:20px;
+max-width:500px;
+margin:auto;
+}
+
+.box{
+background:rgba(255,255,255,0.2);
+backdrop-filter:blur(10px);
+
+padding:20px;
+
+border-radius:15px;
+
+box-shadow:0 8px 20px rgba(0,0,0,0.4);
+}
+
+.box span{
+font-size:32px;
+font-weight:bold;
+display:block;
+}
+
+/* corações */
+
+.heart{
+position:fixed;
+top:-10px;
+color:#ff4d6d;
+font-size:20px;
+animation:fall linear forwards;
+z-index:9999;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh);
+opacity:0;
+}
+}
+
+/* celular */
+
+@media(max-width:600px){
+
+.container{
+margin:15px;
+padding:15px;
+}
+
+.titulo3{
+font-size:26px;
+}
+
+button{
+width:100%;
+}
+
+.text-box{
+font-size:15px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 class="titulo3">TÍTULO DO SEU SITE</h1>
+
+<div class="carousel">
+
+        <img src="images/1.JPG" class="active">
+        <img src="images/2.jpg">
+        <img src="images/3.jpg">
+        <img src="images/4.JPG">
+        <img src="images/5.JPG">
+</div>
+
+<div class="buttons">
+<button onclick="prevSlide()">⬅ Voltar</button>
+<button onclick="nextSlide()">➡ Próxima</button>
+</div>
+
+<br>
+<br>
+<br>
+
+<audio id="musica" autoplay loop>
+<source src="fundo.mp3" type="audio/mpeg">
+</audio>
+
+<button onclick="tocarMusica()">🎵 Música de vocês</button>
+
+<div class="text-box">
+
+<p>
+
+TEXTO 1 <br><br>
+
+Aqui você pode escrever uma declaração, algo do seu coração ou que mais quiser...
+
+<br><br>--------------------<br><br>
+
+TEXTO 2
+
+<br><br>
+
+Aqui você pode escrever mais sobre a história de vocês, onde se conheceram, onde foi a primeira viagem e etc...
+
+</p>
+
+</div>
+
+</div>
+
+<div class="contador-romantico">
+
+<h2>SUA DATA AQUI 10/03/2026</h2>
+
+<div class="contador-grid">
+
+<div class="box">
+<span id="dias">0</span>
+<p>Dias</p>
+</div>
+
+<div class="box">
+<span id="horas">0</span>
+<p>Horas</p>
+</div>
+
+<div class="box">
+<span id="minutos">0</span>
+<p>Minutos</p>
+</div>
+
+<div class="box">
+<span id="segundos">0</span>
+<p>Segundos</p>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* carrossel */
+
+let currentIndex=0;
+
+const slides=document.querySelectorAll(".carousel img");
+
+function showSlide(index){
+
+slides.forEach(slide=>slide.classList.remove("active"));
+
+slides[index].classList.add("active");
+
+}
+
+function nextSlide(){
+
+currentIndex=(currentIndex+1)%slides.length;
+
+showSlide(currentIndex);
+
+}
+
+function prevSlide(){
+
+currentIndex=(currentIndex-1+slides.length)%slides.length;
+
+showSlide(currentIndex);
+
+}
+
+setInterval(nextSlide,3000);
+
+/* contador */
+
+const dataInicial=new Date("2026-03-10T00:00:00").getTime();
+
+function atualizarContador(){
+
+const agora=new Date().getTime();
+
+const diferenca=agora-dataInicial;
+
+if(diferenca<0) return;
+
+const segundosTotais=Math.floor(diferenca/1000);
+
+const dias=Math.floor(segundosTotais/(60*60*24));
+
+const horas=Math.floor((segundosTotais%(60*60*24))/(60*60));
+
+const minutos=Math.floor((segundosTotais%(60*60))/60);
+
+const segundos=segundosTotais%60;
+
+document.getElementById("dias").textContent=dias;
+document.getElementById("horas").textContent=horas;
+document.getElementById("minutos").textContent=minutos;
+document.getElementById("segundos").textContent=segundos;
+
+}
+
+setInterval(atualizarContador,1000);
+
+atualizarContador();
+
+/* musica */
+
+var musica=document.getElementById("musica");
+
+function tocarMusica(){
+
+if(musica.paused){
+musica.play();
+}else{
+musica.pause();
+}
+
+}
+
+/* corações */
+
+function criarCoracao(){
+
+const heart=document.createElement("div");
+
+heart.classList.add("heart");
+
+heart.innerHTML="❤";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.animationDuration=(Math.random()*3+3)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},5000);
+
+}
+
+setInterval(criarCoracao,400);
+
+</script>
+
+</body>
+</html>
